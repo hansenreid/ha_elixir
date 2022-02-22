@@ -1,3 +1,20 @@
 #!/bin/sh
 cd -P -- "$(dirname -- "$0")"
-PHX_SERVER=true SERVICE=test exec ./ha_elixir start
+
+case "$1" in
+    "service-1")
+        PHX_SERVER=true SERVICE=service-1 exec ./ha_elixir start
+        ;;
+
+    "service-2")
+        PHX_SERVER=true SERVICE=service-2 exec ./ha_elixir start
+        ;;
+
+    "service-3")
+        PHX_SERVER=true SERVICE=service-3 exec ./ha_elixir start
+        ;;
+
+    *)
+        PHX_SERVER=true SERVICE=default exec ./ha_elixir start
+        ;;
+esac

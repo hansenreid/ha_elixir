@@ -1,0 +1,110 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ha-elixir
+  labels:
+    app.kubernetes.io/name: ha-elixir
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ha-elixir
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ha-elixir
+    spec:
+      containers:
+        - image: ha_elixir
+          name: ha-elixir
+          imagePullPolicy: Never
+          env:
+            - name: DATABASE_URL
+              value: ecto://postgres:postgres@ha-elixir-postgres-postgresql.default.svc.cluster.local/ha_elixir_prod
+            - name: SECRET_KEY_BASE
+              value: joeE8ymXFur09DCNjM/rWb9n3wd/gD7ES8R3569as0r9GiSQn95/pdIts4WTFteC
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-1 
+  labels:
+    app.kubernetes.io/name: service-1 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: service-1 
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: service-1 
+    spec:
+      containers:
+        - image: ha_elixir
+          name: service-1 
+          command: ["/app/bin/server"]
+          args: ["service-1"]
+          imagePullPolicy: Never
+          env:
+            - name: DATABASE_URL
+              value: ecto://postgres:postgres@ha-elixir-postgres-postgresql.default.svc.cluster.local/ha_elixir_prod
+            - name: SECRET_KEY_BASE
+              value: joeE8ymXFur09DCNjM/rWb9n3wd/gD7ES8R3569as0r9GiSQn95/pdIts4WTFteC
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-2 
+  labels:
+    app.kubernetes.io/name: service-2 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: service-2 
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: service-2 
+    spec:
+      containers:
+        - image: ha_elixir
+          name: service-2 
+          command: ["/app/bin/server"]
+          args: ["service-2"]
+          imagePullPolicy: Never
+          env:
+            - name: DATABASE_URL
+              value: ecto://postgres:postgres@ha-elixir-postgres-postgresql.default.svc.cluster.local/ha_elixir_prod
+            - name: SECRET_KEY_BASE
+              value: joeE8ymXFur09DCNjM/rWb9n3wd/gD7ES8R3569as0r9GiSQn95/pdIts4WTFteC
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-3 
+  labels:
+    app.kubernetes.io/name: service-3 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: service-3 
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: service-3 
+    spec:
+      containers:
+        - image: ha_elixir
+          name: service-3 
+          command: ["/app/bin/server"]
+          args: ["service-3"]
+          imagePullPolicy: Never
+          env:
+            - name: DATABASE_URL
+              value: ecto://postgres:postgres@ha-elixir-postgres-postgresql.default.svc.cluster.local/ha_elixir_prod
+            - name: SECRET_KEY_BASE
+              value: joeE8ymXFur09DCNjM/rWb9n3wd/gD7ES8R3569as0r9GiSQn95/pdIts4WTFteC
+
