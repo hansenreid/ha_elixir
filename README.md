@@ -20,10 +20,10 @@ Run `make migrate` to run the database migration job
 
 ## Accessing Services
 Run `make port-forward` to forward the ports for all services. The services can then be accessed at the following locations:
-localhost:4000 -> Default service
-localhost:4001 -> Service #1
-localhost:4002 -> Service #2
-localhost:4003 -> Service #3
+- localhost:4000 -> Default service
+- localhost:4001 -> Service #1
+- localhost:4002 -> Service #2
+- localhost:4003 -> Service #3
 
 To cleanup the forwarded ports, run `make kill-port-forward`. Please note that this will kill all port forwarding, not just those established by `make port-forward`.
 
